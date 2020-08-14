@@ -1,9 +1,23 @@
 .Square {
-    position: realtive; 
+    position: relative; 
     height:30px; 
     width:30px; 
     background-color:#DCB579; 
     border-color: black; 
     border-width: 1px; 
     border-style: solid;
+    left: 15px;
+    top: 15px;
 }
+.Placer {
+    position: relative; 
+    height:30px; 
+    width:30px; 
+    background: transparent;
+    border: none !important;
+    font-size:0;
+    z-index: 10;
+}
+.Placer:hover {
+    background-color: yellow;
+  }

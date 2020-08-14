@@ -13,6 +13,27 @@ $(function () {
     let goBoard = document.getElementById("Board");
 
     // each lines
+    for(let i = 0; i < boardSize + 1; i++) {
+        // each column
+        let row = document.createElement("div");
+
+        row.classList.add("z-10")
+        row.classList.add("flex")
+        row.classList.add("gap-0")        
+        for(let j = 0; j < boardSize + 1; j++) {
+            // create a square
+            let placer = document.createElement("button");
+            // add the Square class
+            placer.classList.add("Placer");
+            placer.addEventListener("click", function(){
+                console.log(String(i)+","+String(j));
+            });
+            // add it to the board
+            row.appendChild(placer);
+        }
+        goBoard.appendChild(row)
+    }
+    // each lines
     for(let i = 0; i < boardSize; i++) {
         // each column
         let row = document.createElement("div");
@@ -24,13 +45,8 @@ $(function () {
             // add the Square class
             square.classList.add("Square");
             
-            // instead of class linehx
-            // square.style.top = 30 * i + "px";
-            // or use : square.classList.add("lineh" + i);
-            
-            // instead of class linevx
-            // square.style.left = 30 * j + "px";
-            // or use : square.classList.add("linev" + j);
+            //adjust position
+            square.style.top = (-15-(boardSize * 30)) + "px";
             
             // add it to the board
             row.appendChild(square);
