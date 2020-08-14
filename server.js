@@ -16,8 +16,17 @@ var $ = jQuery = require('jquery')(window);
 // let imported = document.createElement('script');
 // imported.src = "./js/user.js";
 // document.head.appendChild(imported);
+boardSize = 9
+boardRow = new Array(boardSize).fill(-1)
+board = boardRow.map(x => new Array(boardSize).fill(-1))
 
 io.on('connection', function(socket) {
+  socket.on("place",function(id){
+    place = id.split(",")
+    console.log(place)
+    board[place[0]][place[1]] = 0
+    socket.emit("updateBoard",board)
+  });
 });
 
 app.get('/', function(req, res) {
