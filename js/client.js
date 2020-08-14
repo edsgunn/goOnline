@@ -10,14 +10,31 @@ $(function () {
         }
         board.push(row)
     }
-    let row = document.createElement('tr');
-    let data = document.createElement('td');
-    data.innerHTML = '+'
-    for (let j = 0; j < boardSize-1; j++) {
-        row.appendChild(data);
+    let goBoard = document.getElementById("Board");
+
+    // each lines
+    for(let i = 0; i < boardSize; i++) {
+        // each column
+        let row = document.createElement("div");
+
+        row.classList.add("flex")
+        for(let j = 0; j < boardSize; j++) {
+            // create a square
+            let square = document.createElement("div");
+            // add the Square class
+            square.classList.add("Square");
+            
+            // instead of class linehx
+            // square.style.top = 30 * i + "px";
+            // or use : square.classList.add("lineh" + i);
+            
+            // instead of class linevx
+            // square.style.left = 30 * j + "px";
+            // or use : square.classList.add("linev" + j);
+            
+            // add it to the board
+            row.appendChild(square);
+        }
+        goBoard.appendChild(row)
     }
-    for (let i = 0; i < boardSize-1; i++) {
-        $('Board').append(row);
-    }
-    console.log("Board Made")
 });

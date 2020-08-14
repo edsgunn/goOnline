@@ -1,0 +1,9 @@
+.Square {
+    position: realtive; 
+    height:30px; 
+    width:30px; 
+    background-color:#DCB579; 
+    border-color: black; 
+    border-width: 1px; 
+    border-style: solid;
+}
