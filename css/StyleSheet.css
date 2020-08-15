@@ -22,4 +22,7 @@
 .Placer:hover {
     background-color: grey;
     font-size: 0;
+    box-shadow: 1px 1px 1px #404040;
+    background-image: -webkit-radial-gradient( 40% 40%, circle closest-corner, #a8a8a8 0%, rgb(130, 130, 130) 90%);
+    background-image: -moz-radial-gradient( 40% 40%, circle closest-side, #a8a8a8 0%,rgb(130, 130, 130) 90%); 
   }

@@ -16,13 +16,16 @@ var $ = jQuery = require('jquery')(window);
 // let imported = document.createElement('script');
 // imported.src = "./js/user.js";
 // document.head.appendChild(imported);
-boardSize = 9
+boardSizes = [19,13,9];
+boardSizeIndex = 0;
+boardSize = boardSizes[boardSizeIndex];
 boardRow = new Array(boardSize).fill(-1)
 board = boardRow.map(x => new Array(boardSize).fill(-1))
 
 io.on('connection', function(socket) {
+  socket.emit('boardSize',boardSizeIndex)
   socket.on("place",function(id){
-    place = id.split(",")
+    place = id.split("-")
     console.log(place)
     board[place[0]][place[1]] = 0
     socket.emit("updateBoard",board)
