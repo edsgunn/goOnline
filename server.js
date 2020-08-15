@@ -55,12 +55,17 @@ function Room(roomID,boardSizeIndex,player1Colour) {
   this.nsp = io.of('/' + this.roomID);
 
   let t = this
-  console.log(t.board)
   this.nsp.on('connection', function(socket) {
-    socket.on("place",function(id){
-      place = id.split("-")
-      t.board[place[0]][place[1]] = 0
-      socket.emit("updateBoard",t.board)
+    socket.on("place",function(data){
+      place = data.space.split("-")
+      t.board[place[0]][place[1]] = data.colour
+      t.nsp.emit("updateBoard",t.board)
+    });
+
+    socket.on("startGame", function(){
+      if (!t.notFull) {
+        t.nsp.emit("startGame")
+      }
     });
   });
 }

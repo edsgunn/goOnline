@@ -8,6 +8,8 @@ $(function () {
     let boardRow = new Array(boardSize).fill(-1)
     board = boardRow.map(x => new Array(boardSize).fill(-1))
     colour = 1
+    turn = 1
+    gameStarted = false
 
     $("#StartBtns").hide()
     adjustBoardSize(boardSizeIndex)
@@ -44,8 +46,9 @@ $(function () {
         socket.emit("joinRoom", val, function (answer) {
             if (answer.room != -1) {
                 joinRoom(val)
+                colour = 1 - colour
+                console.log(colour)
                 adjustBoardSize(answer.boardSizeIndex)
-                colour = !answer.room
                 $("#RoomBtns").hide()
                 $("#StartBtns").show()
             } else {
@@ -53,6 +56,10 @@ $(function () {
                 $('#RoomId').removeClass("border-blue-500").addClass("border-red-500")
             }
         });
+    });
+
+    $("#StartBtn").click(function (){
+        socket.emit("startGame")
     });
 
     function joinRoom(roomID) {
@@ -70,6 +77,7 @@ $(function () {
 
         s.on("updateBoard",function(newBoard) {
             let boardSize = newBoard[0].length
+            turn = 1- turn
             for (let i = 0; i < boardSize; i++) {
                 for (let j = 0; j < boardSize; j++) {
                     if (newBoard[i][j] == 0) {
@@ -94,6 +102,16 @@ $(function () {
         s.on("boardSize", function(boardSizeIndex){
             boardSize(boardSizeIndex)
         });
+
+        s.on("startGame", function(){
+
+            $("#StartBtn").hide()
+            gameStarted = true
+        });
+
+        s.on("pass",function(){
+            turn = 1-turn
+        });
     }
 
     function adjustBoardSize(boardSizeIndex) {
@@ -116,7 +134,9 @@ $(function () {
                 placer.classList.add("Placer");
                 placer.id = i+"-"+j
                 placer.addEventListener("click", function(){
-                    socket.emit("place",placer.id)
+                    if (isValidMove(placer.id) && turn == colour && gameStarted) {
+                        socket.emit("place",{"space":placer.id,"colour":colour})
+                    }
                 });
                 if (stars[boardSizeIndex].includes(placer.id)) {
                     placer.innerHTML = "•"
@@ -146,5 +166,9 @@ $(function () {
             }
             goBoard.append(row)
         }
+    }
+
+    function isValidMove(id){
+        return true
     }
 });
