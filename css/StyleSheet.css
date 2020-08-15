@@ -26,3 +26,25 @@
     background-image: -webkit-radial-gradient( 40% 40%, circle closest-corner, #a8a8a8 0%, rgb(130, 130, 130) 90%);
     background-image: -moz-radial-gradient( 40% 40%, circle closest-side, #a8a8a8 0%,rgb(130, 130, 130) 90%); 
   }
+
+.BlackStone {
+    position: relative;
+    border-radius: 50%; 
+    height:30px; 
+    width:30px; 
+    background-color: black;
+    font-size: 0;
+    box-shadow: 1px 1px 1px #404040;
+    background-image: -webkit-radial-gradient( 40% 40%, circle closest-corner, #404040 0%, rgba(0, 0, 0, 0) 90%);
+    background-image: -moz-radial-gradient( 40% 40%, circle closest-side, #404040 0%, rgba(0, 0, 0, 0) 90%); 
+}
+
+.WhiteStone {
+    position: relative;
+    border-radius: 50%; 
+    height:30px; 
+    width:30px; 
+    background-color: white;
+    font-size: 0;
+    box-shadow: 1px 1px 1px #404040 , inset -3px -3px 5px grey
+}

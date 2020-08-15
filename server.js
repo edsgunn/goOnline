@@ -16,21 +16,54 @@ var $ = jQuery = require('jquery')(window);
 // let imported = document.createElement('script');
 // imported.src = "./js/user.js";
 // document.head.appendChild(imported);
-boardSizes = [19,13,9];
-boardSizeIndex = 0;
-boardSize = boardSizes[boardSizeIndex];
-boardRow = new Array(boardSize).fill(-1)
-board = boardRow.map(x => new Array(boardSize).fill(-1))
+//Setup Starts
 
-io.on('connection', function(socket) {
-  socket.emit('boardSize',boardSizeIndex)
-  socket.on("place",function(id){
+// Dictionary containing rooms referenced by id
+let rooms = {}
+let boardSizes = [19,13,9];
+
+// Socket for initial connections from users
+io.on('connection', function (socket) {
+    // Generate a new room and return its id in the callback
+    socket.on('newRoom', function (data, callback) {
+        let roomid = Math.floor(Math.random() * 90000) + 10000
+        let room = new Room(roomid,data.index,data.colour)
+        console.log("New room created with id " + roomid)
+        rooms[roomid] = room
+        callback(roomid)
+    })
+
+    // Attempt to join a room, and return success in callback
+    socket.on('joinRoom', function (roomid, callback) {
+        if ((roomid in rooms) && (rooms[roomid].notFull)) {
+            callback({"room":!rooms[roomid].player1Colour,"boardSizeIndex":rooms[roomid].boardSizeIndex})
+            rooms[roomid].notFull = false
+        } else {
+            callback({"room":-1,"boardSizeIndex":rooms[roomid].boardSizeIndex})
+        }
+    })
+});
+
+function Room(roomID,boardSizeIndex,player1Colour) {
+  this.roomID = roomID;
+  this.notFull = true
+  this.boardSizeIndex = boardSizeIndex;
+  this.player1Colour = player1Colour
+  this.boardSize = boardSizes[this.boardSizeIndex];
+  this.boardRow = new Array(this.boardSize).fill(-1)
+  this.board = this.boardRow.map(x => new Array(this.boardSize).fill(-1))
+
+  this.nsp = io.of('/' + this.roomID);
+
+  this.nsp.on('connection', function(socket) {
+    socket.on("place",function(id){
     place = id.split("-")
     console.log(place)
     board[place[0]][place[1]] = 0
     socket.emit("updateBoard",board)
+    });
   });
-});
+}
 
 app.get('/', function(req, res) {
   res.sendFile(__dirname + '/index.html');

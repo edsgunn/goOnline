@@ -11,11 +11,33 @@
 
 <body>
     <div class="flex bg-gray-200">
-        <div class="flex-1 text-gray-700 text-center bg-gray-400 px-4 py-2 m-2"></div>
+        <div class="flex-1 text-gray-700 text-center bg-gray-400 px-4 py-2 m-2">
+            <div>
+                <h1>GO Online</h1>
+            </div>
+            <div id="RoomBtns" class="flex-row">
+                <h1>Create Room</h1>
+                <button id="BoardSizeBtn" class="bg-transparent hover:bg-blue-300 text-blue-700 font-semibold py-2 px-4 border border-blue-500 rounded">
+                    BoardSize: 19
+                </button> 
+                <button id="StoneColourChanger" class="bg-transparent hover:bg-blue-300 text-blue-700 font-semibold py-2 px-4 border border-blue-500 rounded">
+                    Your stone colour
+                    <div id="StoneColour" class="BlackStone"></div> 
+                </button>
+                <button id="CreateRoomBtn" class="bg-transparent hover:bg-blue-300 text-blue-700 font-semibold py-2 px-4 border border-blue-500 rounded">
+                    Create Game
+                </button>  
+                <h1>Join Room</h1>
+                <input id="RoomId" autocomplete="off" class="flex-grow p-4 bg-transparent text-blue-700 font-semibold py-2 w-full border border-blue-500 rounded" placeholder="Submit an ID to join a game"/>
+                <button id="JoinRoomBtn" class="bg-transparent hover:bg-blue-300 text-blue-700 font-semibold py-2 px-4 border border-blue-500 rounded">
+                    Join Game
+                </button> 
+            </div>
+        </div>
         <center>
         <div id="Board" class="flex-1 text-gray-700 text-center bg-gray-400 px-4 py-2 m-2"></div>
         </center>
-        <div class="flex-1 text-gray-700 text-center bg-gray-400 px-4 py-2 m-2"></div>
+        <!-- <div class="flex-1 text-gray-700 text-center bg-gray-400 px-4 py-2 m-2"></div> -->
     </div>
     <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
