@@ -15,27 +15,59 @@
             <div>
                 <h1>GO Online</h1>
             </div>
-            <div id="RoomBtns" class="flex-row">
+            <div id="RoomBtns" class="flex flex-col">
                 <h1>Create Room</h1>
-                <button id="BoardSizeBtn" class="bg-transparent hover:bg-blue-300 text-blue-700 font-semibold py-2 px-4 border border-blue-500 rounded">
+                <button id="BoardSizeBtn"
+                    class="bg-transparent hover:bg-blue-300 text-blue-700 font-semibold py-2 px-4 border border-blue-500 rounded">
                     BoardSize: 19
-                </button> 
-                <button id="StoneColourChanger" class="bg-transparent hover:bg-blue-300 text-blue-700 font-semibold py-2 px-4 border border-blue-500 rounded">
-                    Your stone colour
-                    <div id="StoneColour" class="BlackStone"></div> 
                 </button>
-                <button id="CreateRoomBtn" class="bg-transparent hover:bg-blue-300 text-blue-700 font-semibold py-2 px-4 border border-blue-500 rounded">
+                <button id="StoneColourChanger"
+                    class="flex flex-row bg-transparent hover:bg-blue-300 text-blue-700 font-semibold py-2 px-4 border border-blue-500 rounded">
+                    <div class="flex w-1/3"></div>
+                    Your stone colour
+                    <div id="StoneColour" class="BlackStone"></div>
+                </button>
+                <button id="CreateRoomBtn"
+                    class="bg-transparent hover:bg-blue-300 text-blue-700 font-semibold py-2 px-4 border border-blue-500 rounded">
                     Create Game
-                </button>  
+                </button>
                 <h1>Join Room</h1>
-                <input id="RoomId" autocomplete="off" class="flex-grow p-4 bg-transparent text-blue-700 font-semibold py-2 w-full border border-blue-500 rounded" placeholder="Submit an ID to join a game"/>
-                <button id="JoinRoomBtn" class="bg-transparent hover:bg-blue-300 text-blue-700 font-semibold py-2 px-4 border border-blue-500 rounded">
+                <input id="RoomId" autocomplete="off"
+                    class="flex-grow p-4 bg-transparent text-blue-700 font-semibold py-2 w-full border border-blue-500 rounded"
+                    placeholder="Submit an ID to join a game" />
+                <button id="JoinRoomBtn"
+                    class="bg-transparent hover:bg-blue-300 text-blue-700 font-semibold py-2 px-4 border border-blue-500 rounded">
                     Join Game
-                </button> 
+                </button>
             </div>
+            <div id="StartBtns" class="flex flex-col">
+                <div class="bg-gray-400 px-4 m-2"></div>
+                <div class="flex flex-row text-left">
+                    <div class ="bg-gray-400 px-4 m-2"><h1>Turn:</h1></div>
+                    <div id="TurnStoneColour" class="BlackStone"></div>
+                    <div class="bg-gray-400 m-2"><h1>'s turn</h1></div>
+                </div>
+                <h1>Captures:</h1>
+                <div class="flex flex-row">
+                    <div class="flex flex-row w-1/3 text-left">
+                        <div id="TurnStoneColour" class="BlackStone"></div>
+                        <div class="bg-gray-400 m-2"><h1>: 0</h1></div>
+                    </div>
+                    <div class="flex w-1/3"></div>
+                    <div class="flex flex-row w-1/3 text-left">
+                        <div id="TurnStoneColour" class="WhiteStone"></div>
+                        <div class="bg-gray-400 m-2"><h1>: 0</h1></div>
+                    </div>
+                </div>
+                <button id="StartBtn"
+                    class="bg-transparent hover:bg-blue-300 text-blue-700 font-semibold py-2 px-4 border border-blue-500 rounded">
+                    Start Game
+                </button>
+            </div>
+
         </div>
         <center>
-        <div id="Board" class="flex-1 text-gray-700 text-center bg-gray-400 px-4 py-2 m-2"></div>
+            <div id="Board" class="flex-1 text-gray-700 text-center bg-gray-400 px-4 py-2 m-2"></div>
         </center>
         <!-- <div class="flex-1 text-gray-700 text-center bg-gray-400 px-4 py-2 m-2"></div> -->
     </div>

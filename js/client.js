@@ -9,6 +9,7 @@ $(function () {
     board = boardRow.map(x => new Array(boardSize).fill(-1))
     colour = 1
 
+    $("#StartBtns").hide()
     adjustBoardSize(boardSizeIndex)
 
     $("#BoardSizeBtn").click(function () {
@@ -31,6 +32,7 @@ $(function () {
         socket.emit('newRoom', {"index":boardSizeIndex, "colour":colour},function (roomid) {
             joinRoom(roomid) 
             $("#RoomBtns").hide()
+            $("#StartBtns").show()
         });
     });
 
@@ -45,6 +47,7 @@ $(function () {
                 adjustBoardSize(answer.boardSizeIndex)
                 colour = !answer.room
                 $("#RoomBtns").hide()
+                $("#StartBtns").show()
             } else {
                 $('#RoomId').attr('placeholder', "Room ID " + val + "is not valid, the room may be full")
                 $('#RoomId').removeClass("border-blue-500").addClass("border-red-500")

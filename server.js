@@ -52,15 +52,15 @@ function Room(roomID,boardSizeIndex,player1Colour) {
   this.boardSize = boardSizes[this.boardSizeIndex];
   this.boardRow = new Array(this.boardSize).fill(-1)
   this.board = this.boardRow.map(x => new Array(this.boardSize).fill(-1))
-
   this.nsp = io.of('/' + this.roomID);
 
+  let t = this
+  console.log(t.board)
   this.nsp.on('connection', function(socket) {
     socket.on("place",function(id){
-    place = id.split("-")
-    console.log(place)
-    board[place[0]][place[1]] = 0
-    socket.emit("updateBoard",board)
+      place = id.split("-")
+      t.board[place[0]][place[1]] = 0
+      socket.emit("updateBoard",t.board)
     });
   });
 }
