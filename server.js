@@ -57,8 +57,7 @@ function Room(roomID,boardSizeIndex,player1Colour) {
   let t = this
   this.nsp.on('connection', function(socket) {
     socket.on("place",function(data){
-      place = data.space.split("-")
-      t.board[place[0]][place[1]] = data.colour
+      t.board = data
       t.nsp.emit("updateBoard",t.board)
     });
 
