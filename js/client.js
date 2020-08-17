@@ -14,6 +14,7 @@ $(function () {
     gameStarted = false
 
     $("#StartBtns").hide()
+    $("#PassBtn").hide()
     adjustBoardSize(boardSizeIndex)
 
     $("#BoardSizeBtn").click(function () {
@@ -63,6 +64,10 @@ $(function () {
         socket.emit("startGame")
     });
 
+    $("#PassBtn").click(function (){
+        socket.emit("pass")
+    });
+
     function joinRoom(roomID) {
         $('#RoomID').text("Room ID: " + roomID)
         console.log("Joining room with id: " + roomID);
@@ -89,11 +94,21 @@ $(function () {
         s.on("startGame", function(){
 
             $("#StartBtn").hide()
+            $("#PassBtn").show()
             gameStarted = true
         });
 
         s.on("pass",function(){
+            if (turn == colour) {
+                koBoard = board.map(x => x.slice())
+            }
             turn = 1-turn
+            $("#TurnStoneColour").toggleClass("BlackStone WhiteStone")
+        });
+
+        s.on("endGame",function(){
+            $("#PassBtn").innerHtml = "Game Over"
+            gameStarted = false
         });
     }
 

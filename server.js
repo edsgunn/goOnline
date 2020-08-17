@@ -53,17 +53,29 @@ function Room(roomID,boardSizeIndex,player1Colour) {
   this.boardRow = new Array(this.boardSize).fill(-1)
   this.board = this.boardRow.map(x => new Array(this.boardSize).fill(-1))
   this.nsp = io.of('/' + this.roomID);
+  this.endGame = false
 
   let t = this
   this.nsp.on('connection', function(socket) {
     socket.on("place",function(data){
       t.board = data
+      t.endGame = false
       t.nsp.emit("updateBoard",t.board)
     });
 
     socket.on("startGame", function(){
       if (!t.notFull) {
         t.nsp.emit("startGame")
+      }
+    });
+
+    socket.on("pass", function(){
+      if (t.endGame) {
+        socket.emit("endGame")
+      }
+      else {
+        t.endGame = true
+        t.nsp.emit("pass")
       }
     });
   });
