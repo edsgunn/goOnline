@@ -48,8 +48,8 @@ $(function () {
         }
         socket.emit("joinRoom", val, function (answer) {
             if (answer.room != -1) {
+                colour = 1 - answer.room
                 joinRoom(val)
-                colour = 1 - colour
                 adjustBoardSize(answer.boardSizeIndex)
                 $("#RoomBtns").hide()
                 $("#StartBtns").show()
@@ -65,7 +65,10 @@ $(function () {
     });
 
     $("#PassBtn").click(function (){
-        socket.emit("pass")
+        if (turn == colour) {
+            koBoard = board.map(x => x.slice())
+            socket.emit("pass")
+        }
     });
 
     function joinRoom(roomID) {
@@ -75,6 +78,9 @@ $(function () {
         setSocket(socket)
         console.log(socket)
         roomID = roomID;
+        if (1-colour) {
+            $("#PlayerStoneColour").toggleClass("BlackStone WhiteStone")
+        }
     }
     
 
@@ -83,6 +89,7 @@ $(function () {
 
         s.on("updateBoard",function(newBoard) {
             turn = 1 - turn
+            $("#TurnStoneColour").toggleClass("BlackStone WhiteStone")
             updateBoard(newBoard)
             
         });
@@ -99,15 +106,12 @@ $(function () {
         });
 
         s.on("pass",function(){
-            if (turn == colour) {
-                koBoard = board.map(x => x.slice())
-            }
             turn = 1-turn
             $("#TurnStoneColour").toggleClass("BlackStone WhiteStone")
         });
 
         s.on("endGame",function(){
-            $("#PassBtn").innerHtml = "Game Over"
+            $("#PassBtn").html("Game Over")
             gameStarted = false
         });
     }

@@ -36,7 +36,7 @@ io.on('connection', function (socket) {
     // Attempt to join a room, and return success in callback
     socket.on('joinRoom', function (roomid, callback) {
         if ((roomid in rooms) && (rooms[roomid].notFull)) {
-            callback({"room":!rooms[roomid].player1Colour,"boardSizeIndex":rooms[roomid].boardSizeIndex})
+            callback({"room":rooms[roomid].player1Colour,"boardSizeIndex":rooms[roomid].boardSizeIndex})
             rooms[roomid].notFull = false
         } else {
             callback({"room":-1,"boardSizeIndex":rooms[roomid].boardSizeIndex})
