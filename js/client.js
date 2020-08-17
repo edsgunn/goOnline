@@ -7,6 +7,8 @@ $(function () {
     boardSize = boardSizes[boardSizeIndex]
     let boardRow = new Array(boardSize).fill(-1)
     board = boardRow.map(x => new Array(boardSize).fill(-1))
+    lastBoard = board.map(x => x.slice())
+    koBoard = lastBoard.map(x => x.slice())
     colour = 1
     turn = 1
     gameStarted = false
@@ -75,31 +77,9 @@ $(function () {
         console.log(s)
 
         s.on("updateBoard",function(newBoard) {
-            board = newBoard
-            turn = 1- turn
-            for (let i = 0; i < boardSize; i++) {
-                for (let j = 0; j < boardSize; j++) {
-                    let position = $(`#${i}-${j}`)
-                    if (board[i][j] == 0) {
-                        position.css("background-color", "white");
-                        position.css("box-shadow","1px 1px 1px #404040 , inset -3px -3px 5px gray");
-                        position.css("font-size","0")
-    
-                    }
-                    else if (board[i][j] == 1) { 
-                        position.css("background-color", "black");
-                        position.css("box-shadow", "1px 1px 1px #404040");
-                        position.css("background-image","-webkit-radial-gradient( 40% 40%, circle closest-corner, #404040 0%, rgba(0, 0, 0, 0) 90%)");
-                        position.css("background-image", "-moz-radial-gradient( 40% 40%, circle closest-side, #404040 0%, rgba(0, 0, 0, 0) 90%)");
-                        position.css("font-size","0")
-                    }
-                    else {
-                        position.css("background","transparent")
-                        position.css("font-size","10")
-                        position.css("color", "black")
-                    }
-                }
-            }
+            turn = 1 - turn
+            updateBoard(newBoard)
+            
         });
 
         s.on("boardSize", function(boardSizeIndex){
@@ -139,7 +119,14 @@ $(function () {
                 placer.addEventListener("click", function(){
                     if (turn == colour && gameStarted) {
                         if (isValidMove(placer.id,colour)) {
-                            socket.emit("place",board)
+                            if (!boardsEqual(board,koBoard)) {
+                                koBoard = board.map(x => x.slice())
+                                socket.emit("place",board)
+                            }
+                            else {
+                                console.log("Not Valid Move due to Ko")
+                                board = lastBoard.map(x => x.slice())
+                            }
                         }
                     }
                 });
@@ -177,54 +164,25 @@ $(function () {
         let opponentTaken = [id]
 
         for (let stone of opponentTaken) {
-            console.log(opponentTaken)
             let left = [stone[0],stone[1]-1]
             let right = [stone[0],stone[1]+1]
             let up = [stone[0]-1,stone[1]]
             let down = [stone[0]+1,stone[1]]
-            if (board[up[0]][up[1]] != undefined) {
-                if (board[up[0]][up[1]] == -1){
-                    return []
-                }
-                else if (board[up[0]][up[1]] == 1-playerColour) {
-                    if (!(arrayIsInArray(up,opponentTaken))) {
-                        opponentTaken.push(up)
+            let spaces = [left,right,up,down]
+            for (let space of spaces) {
+                if (board[space[0]] != undefined) {
+                    if (board[space[0]][space[1]] != undefined) {
+                        if (board[space[0]][space[1]] == -1){
+                            return []
+                        }
+                        else if (board[space[0]][space[1]] == 1-playerColour) {
+                            if (!(arrayIsInArray(space,opponentTaken))) {
+                                opponentTaken.push(space)
+                            }
+                        }
+        
                     }
                 }
-
-            }
-            if (board[left[0]][left[1]] != undefined) {
-                if (board[left[0]][left[1]] == -1){
-                    return []
-                }
-                else if (board[left[0]][left[1]] == 1-playerColour) {
-                    if (!(arrayIsInArray(left,opponentTaken))) {
-                        opponentTaken.push(left)
-                    }
-                }
-
-            }
-            if (board[down[0]][down[1]] != undefined) {
-                if (board[down[0]][down[1]] == -1){
-                    return []
-                }
-                else if (board[down[0]][down[1]] == 1-playerColour) {
-                    if (!(arrayIsInArray(down,opponentTaken))) {
-                        opponentTaken.push(down)
-                    }
-                }
-
-            }
-            if (board[right[0]][right[1]] != undefined) {
-                if (board[right[0]][right[1]] == -1){
-                     return []
-                }
-                else if (board[right[0]][right[1]] == 1-playerColour) {
-                    if (!(arrayIsInArray(right,opponentTaken))) {
-                        opponentTaken.push(right)
-                    }
-                }
-
             }
         }
         return opponentTaken
@@ -237,6 +195,7 @@ $(function () {
             console.log("Space Full")
             return false
         }
+        lastBoard = board.map(x => x.slice())
         board[place[0]][place[1]] = playerColour
         let playerStones = [place]
         let opponentStones = []
@@ -244,33 +203,16 @@ $(function () {
         let right = [place[0],place[1]+1]
         let up = [place[0]-1,place[1]]
         let down = [place[0]+1,place[1]]
-        if (board[up[0]][up[1]] != undefined) {
-            if (board[up[0]][up[1]] == 1-playerColour) {
-                let takenStones = checkTaken(up,playerColour)
-                opponentStones = opponentStones.concat(takenStones)
+        let spaces = [left,right,up,down]
+        for (let space of spaces) {
+            if (board[space[0]] != undefined) {
+                if (board[space[0]][space[1]] != undefined) {
+                    if (board[space[0]][space[1]] == 1-playerColour) {
+                        let takenStones = checkTaken(space,playerColour)
+                        opponentStones = opponentStones.concat(takenStones)
+                    }
+                }
             }
-
-        }
-        if (board[left[0]][left[1]] != undefined) {
-            if (board[left[0]][left[1]] == 1-playerColour) {
-                let takenStones = checkTaken(left,playerColour)
-                opponentStones = opponentStones.concat(takenStones)
-            }
-
-        }
-        if (board[down[0]][down[1]] != undefined) {
-            if (board[down[0]][down[1]] == 1-playerColour) {
-                let takenStones = checkTaken(down,playerColour)
-                opponentStones = opponentStones.concat(takenStones)
-            }
-
-        }
-        if (board[right[0]][right[1]] != undefined) {
-            if (board[right[0]][right[1]] == 1-playerColour) {
-                let takenStones = checkTaken(right,playerColour)
-                opponentStones = opponentStones.concat(takenStones)
-            }
-
         }
         if (opponentStones.length > 0) {
             for (let stone of opponentStones) {
@@ -283,41 +225,20 @@ $(function () {
             let right = [stone[0],stone[1]+1]
             let up = [stone[0]-1,stone[1]]
             let down = [stone[0]+1,stone[1]]
-            if (board[up[0]][up[1]] != undefined) {
-                if (board[up[0]][up[1]] == -1){
-                    return true
+            let spaces = [left,right,up,down]
+            for (let space of spaces) {
+                if (board[space[0]] != undefined){
+                    if (board[space[0]][space[1]] != undefined) {
+                        if (board[space[0]][space[1]] == -1){
+                            return true
+                        }
+                        else if (board[space[0]][space[1]] == playerColour) {
+                            if (!(arrayIsInArray(space,playerStones))) {
+                                playerStones.push(space)
+                            }
+                        }
+                    }
                 }
-                else if (board[up[0]][up[1]] == playerColour) {
-                    playerStones.push(up)
-                }
-
-            }
-            if (board[left[0]][left[1]] != undefined) {
-                if (board[left[0]][left[1]] == -1){
-                    return true
-                }
-                else if (board[left[0]][left[1]] == playerColour) {
-                    playerStones.push(left)
-                }
-
-            }
-            if (board[down[0]][down[1]] != undefined) {
-                if (board[down[0]][down[1]] == -1){
-                    return true
-                }
-                else if (board[down[0]][down[1]] == playerColour) {
-                    playerStones.push(down)
-                }
-
-            }
-            if (board[right[0]][right[1]] != undefined) {
-                if (board[right[0]][right[1]] == -1){
-                     return true
-                }
-                else if (board[right[0]][right[1]] == playerColour) {
-                    playerStones.push(right)
-                }
-
             }
         }
         console.log("Not valid move")
@@ -331,5 +252,42 @@ $(function () {
             }
         }
         return false
+    }
+    function boardsEqual(board1,board2) {
+        for (let i = 0; i < boardSize; i++) {
+            for (let j = 0; j < boardSize; j++) {
+                if (board1[i][j] != board2[i][j]) {
+                    return false
+                }
+            } 
+        }
+        return true
+    }
+    function updateBoard(newBoard) {
+        board = newBoard
+        for (let i = 0; i < boardSize; i++) {
+            for (let j = 0; j < boardSize; j++) {
+                let position = $(`#${i}-${j}`)
+                if (board[i][j] == 0) {
+                    position.css("background-color", "white");
+                    position.css("box-shadow","1px 1px 1px #404040 , inset -3px -3px 5px gray");
+                    position.css("font-size","0")
+
+                }
+                else if (board[i][j] == 1) { 
+                    position.css("background-color", "black");
+                    position.css("box-shadow", "1px 1px 1px #404040");
+                    position.css("background-image","-webkit-radial-gradient( 40% 40%, circle closest-corner, #404040 0%, rgba(0, 0, 0, 0) 90%)");
+                    position.css("background-image", "-moz-radial-gradient( 40% 40%, circle closest-side, #404040 0%, rgba(0, 0, 0, 0) 90%)");
+                    position.css("font-size","0")
+                }
+                else {
+                    position.css("background","transparent")
+                    position.css("box-shadow", "0px 0px 0px #404040");
+                    position.css("font-size","10")
+                    position.css("color", "black")
+                }
+            }
+        }
     }
 });
