@@ -1,10 +1,8 @@
 var express = require('express');
 var app = express();
-//var giphy = require('giphy-js-sdk-core');
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var port = process.env.PORT || 8080;
-
 var jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 const { window } = new JSDOM();
