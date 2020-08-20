@@ -11,6 +11,8 @@ $(function () {
     koBoard = lastBoard.map(x => x.slice())
     colour = 1
     turn = 1
+    whiteCaptured = 0
+    blackCaptured = 0
     gameStarted = false
 
     $("#StartBtns").hide()
@@ -113,6 +115,17 @@ $(function () {
         s.on("endGame",function(){
             $("#PassBtn").html("Game Over")
             gameStarted = false
+        });
+
+        s.on("capture",function(data){
+            if (data.colour){
+                blackCaptured = blackCaptured + data.num
+                $("#BlackCaptures").text(": "+blackCaptured)
+            } 
+            else {
+                whiteCaptured = whiteCaptured + data.num
+                $("#WhiteCaptures").text(": "+whiteCaptured)
+            }
         });
     }
 
@@ -237,6 +250,7 @@ $(function () {
             for (let stone of opponentStones) {
                 board[stone[0]][stone[1]] = -1
             }
+            socket.emit("capture",{"colour":1-colour,"num":opponentStones.length})
             return true
         }
         for (let stone of playerStones) {

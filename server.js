@@ -76,6 +76,10 @@ function Room(roomID,boardSizeIndex,player1Colour) {
         t.nsp.emit("pass")
       }
     });
+
+    socket.on("capture",function(data){
+      socket.emit("capture",data)
+    })
   });
 }
 
