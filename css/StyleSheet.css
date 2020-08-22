@@ -1,17 +1,12 @@
 .Square {
     position: relative; 
-    height:30px; 
-    width:30px; 
     background-color:#DCB579; 
     border-color: black; 
     border-width: 1px; 
     border-style: solid;
-    left: 15px;
 }
 .Placer {
     position: relative; 
-    height:30px; 
-    width:30px; 
     background: transparent;
     border: none !important;
     font-weight: 700;

@@ -135,11 +135,11 @@ $(function () {
         board = boardRow.map(x => new Array(boardSize).fill(-1))
         let goBoard = $("#Board");
         goBoard.empty();
+        let squareSize = 30 + boardSizeIndex*15
         // each lines
         for(let i = 0; i < boardSize; i++) {
             // each column
             let row = document.createElement("div");
-            row.classList.add("z-10")
             row.classList.add("flex")
             row.classList.add("gap-0")        
             for(let j = 0; j < boardSize; j++) {
@@ -147,6 +147,8 @@ $(function () {
                 let placer = document.createElement("button");
                 // add the Square class
                 placer.classList.add("Placer");
+                placer.style.width = squareSize + "px";
+                placer.style.height = squareSize + "px";
                 placer.id = i+"-"+j
                 placer.addEventListener("click", function(){
                     if (turn == colour && gameStarted) {
@@ -183,7 +185,11 @@ $(function () {
                 square.classList.add("Square");
                 
                 //adjust position
-                square.style.top = (15-(boardSize * 30)) + "px";
+                square.style.top = ((squareSize/2)-(boardSize * squareSize)) + "px";
+                square.style.width = squareSize + "px";
+                square.style.height = squareSize + "px";
+                square.style.left = squareSize/2 + "px";
+                
                 
                 // add it to the board
                 row.appendChild(square);
