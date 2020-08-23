@@ -1,17 +1,12 @@
 .Square {
     position: relative; 
-    height:30px; 
-    width:30px; 
     background-color:#DCB579; 
     border-color: black; 
     border-width: 1px; 
     border-style: solid;
-    left: 15px;
 }
 .Placer {
     position: relative; 
-    height:30px; 
-    width:30px; 
     background: transparent;
     border: none !important;
     font-weight: 700;
@@ -47,4 +42,11 @@
     background-color: white;
     font-size: 0;
     box-shadow: 1px 1px 1px #404040 , inset -3px -3px 5px grey
+}
+
+button {
+    outline: none !important;
+}
+input {
+    outline: none;
 }

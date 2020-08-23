@@ -10,75 +10,142 @@
 </head>
 
 <body>
-    <div class="flex bg-gray-200">
-        <div class="flex-1 text-gray-700 text-center bg-gray-400 px-4 py-2 m-2">
-            <div>
+    <div class="flex bg-gray-600 h-screen p-4">
+        <div class="flex-1"></div>
+        <div class="flex-initial text-gray-700 text-center bg-gray-500 h-full px-4 py-2 m-2 rounded">
+            <div class="flex-none m-3">
                 <h1>GO Online</h1>
             </div>
             <div id="RoomBtns" class="flex flex-col">
                 <h1>Create Room</h1>
                 <button id="BoardSizeBtn"
-                    class="bg-transparent hover:bg-blue-300 text-blue-700 font-semibold py-2 px-4 border border-blue-500 rounded">
+                    class="flex-none bg-grey-900 hover:bg-grey-500 text-grey-700 font-semibold py-2 px-4 m-2 border rounded">
                     BoardSize: 19
                 </button>
                 <button id="StoneColourChanger"
-                    class="flex flex-row bg-transparent hover:bg-blue-300 text-blue-700 font-semibold py-2 px-4 border border-blue-500 rounded">
-                    <div class="flex w-1/3"></div>
+                    class="flex flex-row bg-transparent hover:bg-grey-500 text-grey-700 font-semibold py-2 px-4 m-2 border border-grey-500 rounded">
+                    <!-- <div class="flex w-1/3"></div> -->
                     Your stone colour:
-                    <div id="StoneColour" class="BlackStone flex-none"></div>
+                    <div id="StoneColour" class="BlackStone flex-none m-1"></div>
                 </button>
                 <button id="CreateRoomBtn"
-                    class="bg-transparent hover:bg-blue-300 text-blue-700 font-semibold py-2 px-4 border border-blue-500 rounded">
+                    class="bg-transparent hover:bg-grey-500 text-grey-700 font-semibold py-2 px-4 m-2 border border-grey-500 rounded">
                     Create Game
                 </button>
+                <div class="flex m-3"></div>
                 <h1>Join Room</h1>
                 <input id="RoomId" autocomplete="off"
-                    class="flex-grow p-4 bg-transparent text-blue-700 font-semibold py-2 w-full border border-blue-500 rounded"
+                    class="flex-grow p-4 bg-transparent text-grey-700 font-semibold py-2 m-2 border border-grey-500 rounded"
                     placeholder="Submit an ID to join a game" />
                 <button id="JoinRoomBtn"
-                    class="bg-transparent hover:bg-blue-300 text-blue-700 font-semibold py-2 px-4 border border-blue-500 rounded">
+                    class="bg-transparent hover:bg-grey-500 text-grey-700 font-semibold py-2 px-4 m-2 border border-grey-500 rounded">
                     Join Game
                 </button>
             </div>
             <div id="StartBtns" class="flex flex-col">
-                <div class="bg-gray-400 px-4 m-2"></div>
-                <div id="RoomID" class="flex flex-row text-left"></div>
-                <div class="flex flex-row text-left">
-                    <div class ="bg-gray-400 px-4 m-2"><h1>Your colour:</h1></div>
+                <div class="bg-gray-500 px-4 m-2"></div>
+                <div id="RoomID" class="flex flex-row text-left m-2"></div>
+                <div class="flex flex-row text-left m-2">
+                    <div class="bg-gray-500 px-4 m-2">
+                        <h1>Your colour:</h1>
+                    </div>
                     <div id="PlayerStoneColour" class="BlackStone flex-none"></div>
                 </div>
-                <div class="flex flex-row text-left">
-                    <div class ="bg-gray-400 px-4 m-2"><h1>Turn:</h1></div>
-                    <div id="TurnStoneColour" class="BlackStone flex-none"></div>
-                    <div class="bg-gray-400 m-2"><h1>'s turn</h1></div>
-                </div>
-                <h1>Captures:</h1>
-                <div class="flex flex-row">
-                    <div class="flex flex-row w-1/3 text-left">
-                        <div id="BlackCaputes" class="BlackStone flex-none"></div>
-                        <div class="bg-gray-400 m-2"><h1>: 0</h1></div>
+                <div class="flex flex-row text-left m-2">
+                    <div class="bg-gray-500 px-4 m-2">
+                        <h1>Turn:</h1>
                     </div>
-                    <div class="flex w-1/3"></div>
-                    <div class="flex flex-row w-1/3 text-left">
-                        <div id="WhiteCaptures" class="WhiteStone flex-none"></div>
-                        <div class="bg-gray-400 m-2"><h1>: 0</h1></div>
+                    <div id="TurnStoneColour" class="BlackStone flex-none"></div>
+                    <div class="bg-gray-500 m-2">
+                        <h1>'s turn</h1>
+                    </div>
+                </div>
+                <h1>Stones Captured:</h1>
+                <div class="flex flex-row m-2">
+                    <div class="flex flex-row w-1/2 text-left">
+                        <div class="BlackStone flex-none"></div>
+                        <div id="BlackCaputes" class="bg-gray-500 m-2">
+                            <h1>: 0</h1>
+                        </div>
+                    </div>
+                    <!-- <div class="flex w-1/3"></div> -->
+                    <div class="flex flex-row w-1/2 text-left">
+                        <div class="WhiteStone flex-none"></div>
+                        <div id="WhiteCaptures" class="bg-gray-500 m-2">
+                            <h1>: 0</h1>
+                        </div>
                     </div>
                 </div>
                 <button id="StartBtn"
-                    class="bg-transparent hover:bg-blue-300 text-blue-700 font-semibold py-2 px-4 border border-blue-500 rounded">
+                    class="bg-transparent hover:bg-grey-500 text-grey-700 font-semibold py-2 px-4 m-2 border border-grey-500 rounded">
                     Start Game
                 </button>
                 <button id="PassBtn"
-                    class="bg-transparent hover:bg-blue-300 text-blue-700 font-semibold py-2 px-4 border border-blue-500 rounded">
+                    class="bg-transparent hover:bg-grey-500 text-grey-700 font-semibold py-2 px-4 m-2 border border-grey-500 rounded">
                     Pass
                 </button>
+            </div>
+            <div id="EndGame" class="flex flex-col">
+                <h1>GameOver</h1>
+                <div class="flex flex-row text-left m-2">
+                    <div id="WinnerColour" class="flex-none"></div>
+                    <div class="bg-gray-500 m-2">
+                        <h1> Wins!</h1>
+                    </div>
+                </div>
+                <h1>Black Score</h1>
+                <div class="flex flex-row text-left m-2">
+                    <div class="bg-gray-500 px-4">
+                        <h1>Stones:</h1>
+                    </div>
+                    <div id="BlackScoreStones" class="bg-gray-500"></div>
+                </div>
+                <div class="flex flex-row text-left m-2">
+                    <div class="bg-gray-500 px-4">
+                        <h1>Territory:</h1>
+                    </div>
+                    <div id="BlackScoreTerritory" class="bg-gray-500"></div>
+                </div>
+                <div class="flex flex-row text-left m-2">
+                    <div class="bg-gray-500 px-4">
+                        <h1>Total:</h1>
+                    </div>
+                    <div id="BlackScoreTotal" class="bg-gray-500"></div>
+                </div>
+                <h1>White Score</h1>
+                <div class="flex flex-row text-left m-2">
+                    <div class="bg-gray-500 px-4">
+                        <h1>Stones:</h1>
+                    </div>
+                    <div id="WhiteScoreStones" class="bg-gray-500"></div>
+                </div>
+                <div class="flex flex-row text-left m-2">
+                    <div class="bg-gray-500 px-4">
+                        <h1>Territory:</h1>
+                    </div>
+                    <div id="WhiteScoreTerritory" class="bg-gray-500"></div>
+                </div>
+                <div class="flex flex-row text-left m-2">
+                    <div class="bg-gray-500 px-4">
+                        <h1>Komi:</h1>
+                    </div>
+                    <div class="bg-gray-500">
+                        <h1>6.5</h1>
+                    </div>
+                </div>
+                <div class="flex flex-row text-left m-2">
+                    <div class="bg-gray-500 px-4">
+                        <h1>Total:</h1>
+                    </div>
+                    <div id="WhiteScoreTotal" class="bg-gray-500"></div>
+                </div>
             </div>
 
         </div>
         <center>
-            <div id="Board" class="flex-1 text-gray-700 text-center bg-gray-400 px-4 py-2 m-2"></div>
+            <div id="Board" class="flex-initial h-full bg-gray-500 px-4 py-2 m-2 rounded"></div>
         </center>
-        <!-- <div class="flex-1 text-gray-700 text-center bg-gray-400 px-4 py-2 m-2"></div> -->
+        <div class="flex-1"></div>
     </div>
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
