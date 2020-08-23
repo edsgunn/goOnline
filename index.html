@@ -13,7 +13,7 @@
     <div class="flex bg-gray-600 h-screen p-4">
         <div class="flex-1"></div>
         <div class="flex-initial text-gray-700 text-center bg-gray-500 h-full px-4 py-2 m-2 rounded">
-            <div>
+            <div class="flex-none m-3">
                 <h1>GO Online</h1>
             </div>
             <div id="RoomBtns" class="flex flex-col">
@@ -46,24 +46,34 @@
                 <div class="bg-gray-500 px-4 m-2"></div>
                 <div id="RoomID" class="flex flex-row text-left m-2"></div>
                 <div class="flex flex-row text-left m-2">
-                    <div class ="bg-gray-500 px-4 m-2"><h1>Your colour:</h1></div>
+                    <div class="bg-gray-500 px-4 m-2">
+                        <h1>Your colour:</h1>
+                    </div>
                     <div id="PlayerStoneColour" class="BlackStone flex-none"></div>
                 </div>
                 <div class="flex flex-row text-left m-2">
-                    <div class ="bg-gray-500 px-4 m-2"><h1>Turn:</h1></div>
+                    <div class="bg-gray-500 px-4 m-2">
+                        <h1>Turn:</h1>
+                    </div>
                     <div id="TurnStoneColour" class="BlackStone flex-none"></div>
-                    <div class="bg-gray-500 m-2"><h1>'s turn</h1></div>
+                    <div class="bg-gray-500 m-2">
+                        <h1>'s turn</h1>
+                    </div>
                 </div>
                 <h1>Stones Captured:</h1>
                 <div class="flex flex-row m-2">
                     <div class="flex flex-row w-1/2 text-left">
                         <div class="BlackStone flex-none"></div>
-                        <div id="BlackCaputes" class="bg-gray-500 m-2"><h1>: 0</h1></div>
+                        <div id="BlackCaputes" class="bg-gray-500 m-2">
+                            <h1>: 0</h1>
+                        </div>
                     </div>
                     <!-- <div class="flex w-1/3"></div> -->
                     <div class="flex flex-row w-1/2 text-left">
                         <div class="WhiteStone flex-none"></div>
-                        <div id="WhiteCaptures" class="bg-gray-500 m-2"><h1>: 0</h1></div>
+                        <div id="WhiteCaptures" class="bg-gray-500 m-2">
+                            <h1>: 0</h1>
+                        </div>
                     </div>
                 </div>
                 <button id="StartBtn"
@@ -74,6 +84,61 @@
                     class="bg-transparent hover:bg-grey-500 text-grey-700 font-semibold py-2 px-4 m-2 border border-grey-500 rounded">
                     Pass
                 </button>
+            </div>
+            <div id="EndGame" class="flex flex-col">
+                <h1>GameOver</h1>
+                <div class="flex flex-row text-left m-2">
+                    <div id="WinnerColour" class="flex-none"></div>
+                    <div class="bg-gray-500 m-2">
+                        <h1> Wins!</h1>
+                    </div>
+                </div>
+                <h1>Black Score</h1>
+                <div class="flex flex-row text-left m-2">
+                    <div class="bg-gray-500 px-4">
+                        <h1>Stones:</h1>
+                    </div>
+                    <div id="BlackScoreStones" class="bg-gray-500"></div>
+                </div>
+                <div class="flex flex-row text-left m-2">
+                    <div class="bg-gray-500 px-4">
+                        <h1>Territory:</h1>
+                    </div>
+                    <div id="BlackScoreTerritory" class="bg-gray-500"></div>
+                </div>
+                <div class="flex flex-row text-left m-2">
+                    <div class="bg-gray-500 px-4">
+                        <h1>Total:</h1>
+                    </div>
+                    <div id="BlackScoreTotal" class="bg-gray-500"></div>
+                </div>
+                <h1>White Score</h1>
+                <div class="flex flex-row text-left m-2">
+                    <div class="bg-gray-500 px-4">
+                        <h1>Stones:</h1>
+                    </div>
+                    <div id="WhiteScoreStones" class="bg-gray-500"></div>
+                </div>
+                <div class="flex flex-row text-left m-2">
+                    <div class="bg-gray-500 px-4">
+                        <h1>Territory:</h1>
+                    </div>
+                    <div id="WhiteScoreTerritory" class="bg-gray-500"></div>
+                </div>
+                <div class="flex flex-row text-left m-2">
+                    <div class="bg-gray-500 px-4">
+                        <h1>Komi:</h1>
+                    </div>
+                    <div class="bg-gray-500">
+                        <h1>6.5</h1>
+                    </div>
+                </div>
+                <div class="flex flex-row text-left m-2">
+                    <div class="bg-gray-500 px-4">
+                        <h1>Total:</h1>
+                    </div>
+                    <div id="WhiteScoreTotal" class="bg-gray-500"></div>
+                </div>
             </div>
 
         </div>
